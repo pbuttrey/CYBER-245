@@ -1,0 +1,50 @@
+import random
+import time
+
+
+
+def rand_key(seed,size):
+    random.seed(seed)
+    key = []
+    for i in range(size):
+        key.append(random.randint(0,256))
+    #print(key)
+    return key
+
+def enc_msg(text, key):
+    enc_text = []
+    for i in range(0, len(text)):
+        x = ord(text[i])
+        enc_text.append(x ^ key[i])
+    return enc_text
+
+def dec_msg(enc_text, key):
+    unenc_msg = []
+    for i in range(0, len(enc_text)):
+        y = (enc_text[i] ^ key[i])
+        unenc_msg.append(chr(y))
+    return unenc_msg
+
+if __name__ == "__main__":
+    text = "Good Morning!"
+    print("This is my original message: ", text)
+    seed = int(time.time())
+    key = rand_key(seed, len(text))
+    enc_text = enc_msg(text, key)
+    print("My encrypted message: ", (bytearray(enc_text)))
+    print("My decrypted message is: ", ('').join(dec_msg(enc_text, key)))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#Collaborated with Emily Doyle 
